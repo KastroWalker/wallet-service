@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: walletService
+netty:
+  default:
+    allocator:
+      max-order: 3
