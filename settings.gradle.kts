@@ -1,3 +1,2 @@
 
-rootProject.name="wallet-service"
-
+rootProject.name = "wallet-service"

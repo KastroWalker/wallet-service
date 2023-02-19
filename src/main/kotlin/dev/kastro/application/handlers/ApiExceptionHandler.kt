@@ -1,7 +1,7 @@
 package dev.kastro.application.handlers
 
-import dev.kastro.application.exceptions.ErrorResponse
 import dev.kastro.application.exceptions.ApiException
+import dev.kastro.application.exceptions.ErrorResponse
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
