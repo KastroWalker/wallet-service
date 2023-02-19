@@ -32,12 +32,12 @@ class TransferServiceTest {
                 transferService.execute(transfer)
             }
 
-            verify { walletService.getBalance(transfer.debtorId) }
-            verify { walletService.withdraw(transfer.debtorId, transfer.amount) }
+            verify(exactly = 1){ walletService.getBalance(transfer.debtorId) }
+            verify(exactly = 1){ walletService.withdraw(transfer.debtorId, transfer.amount) }
         }
 
         @Test
-        fun `should not execute a transfer when the transfer is invalid`() {
+        fun `should not execute a transfer when the found is insuficient`() {
             val exceptionMessage = "Insufficient funds"
             val transfer = Transfer(
                 debtorId = "d96eb4b6-0139-4664-9b4c-ff8bcd62aaf2",
@@ -54,7 +54,8 @@ class TransferServiceTest {
             assertThat(exception.message).isEqualTo(exceptionMessage)
             assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
 
-            verify { walletService.getBalance(transfer.debtorId) }
+            verify(exactly = 1){ walletService.getBalance(transfer.debtorId) }
+            verify(exactly = 0){ walletService.withdraw(any(), any()) }
         }
     }
 }
