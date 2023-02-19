@@ -5,3 +5,17 @@ netty:
   default:
     allocator:
       max-order: 3
+
+#AWS
+aws:
+  access-key-id: 123
+  secret-key: 123
+  region: us-east-1
+  endpoint: http://localhost:4566
+  dynamodb:
+    wallet-table: wallet-service.wallets
+
+#SECURITY
+security:
+  auth:
+    enabled: false

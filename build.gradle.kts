@@ -25,6 +25,10 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
 
+    // AWS
+    implementation("software.amazon.awssdk:dynamodb-enhanced:2.20.1")
+    implementation("software.amazon.awssdk:secretsmanager:2.20.0")
+
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 }
