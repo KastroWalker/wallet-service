@@ -1,6 +1,6 @@
-package dev.kastro.domain.models
+package dev.kastro.resource.sqs
 
-data class Transfer(
+data class TransferMessage(
     val id: String? = null,
     val debtorId: String,
     val beneficiaryId: String,

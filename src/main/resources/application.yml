@@ -14,6 +14,8 @@ aws:
   endpoint: http://localhost:4566
   dynamodb:
     wallet-table: wallet-service.wallets
+  sqs:
+    transfer-queue: http://localhost:4566/000000000000/transfer-queue.fifo
 
 #SECURITY
 security:

@@ -3,7 +3,6 @@ package dev.kastro.application.controllers
 import dev.kastro.application.controllers.requests.TransferRequest
 import dev.kastro.domain.services.TransferService
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.HttpStatus
 import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller

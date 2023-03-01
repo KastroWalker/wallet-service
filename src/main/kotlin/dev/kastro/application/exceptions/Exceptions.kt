@@ -11,6 +11,9 @@ open class ApiException(
 class RepositoryException(message: String, throwable: Throwable) :
     ApiException(message, HttpStatus.INTERNAL_SERVER_ERROR, throwable)
 
+class SqsException(message: String, throwable: Throwable) :
+    ApiException(message, HttpStatus.INTERNAL_SERVER_ERROR, throwable)
+
 class BadRequestException(message: String, throwable: Throwable? = null) :
     ApiException(message, HttpStatus.BAD_REQUEST, throwable)
 

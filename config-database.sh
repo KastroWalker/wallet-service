@@ -15,3 +15,8 @@ awslocal dynamodb create-table \
 echo "####### Creating wallet-service.wallers table #######"
 awslocal dynamodb put-item --table-name $WALLET --item "{\"user_id\":{\"S\":\"233e79ea-2fd1-4904-a14a-6bb8b17e1fe4\"},\"amount\":{\"N\":\"1000\"}}"
 awslocal dynamodb put-item --table-name $WALLET --item "{\"user_id\":{\"S\":\"308ef9ae-c05f-4a87-a0f3-658230e2977c\"},\"amount\":{\"N\":\"500\"}}"
+
+export TRANSFER_SQS_QUEUE=transfer-queue.fifo
+
+echo "####### Creating transfer sqs queue #######"
+awslocal sqs create-queue --queue-name $TRANSFER_SQS_QUEUE --attributes "FifoQueue=true,ContentBasedDeduplication=true"

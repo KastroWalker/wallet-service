@@ -3,16 +3,22 @@ package dev.kastro.domain.services
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import dev.kastro.application.exceptions.BadRequestException
+import dev.kastro.domain.message.TransferProducer
 import dev.kastro.domain.models.Transfer
 import io.micronaut.http.HttpStatus
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 
 class TransferServiceTest {
     private val walletService = mockk<WalletService>()
-    private val transferService = TransferService(walletService)
+    private val transferProducer = mockk<TransferProducer>()
+    private val transferService = TransferService(walletService, transferProducer)
 
     @Nested
     @DisplayName("Execute transfer service tests")
@@ -32,8 +38,8 @@ class TransferServiceTest {
                 transferService.execute(transfer)
             }
 
-            verify(exactly = 1){ walletService.getBalance(transfer.debtorId) }
-            verify(exactly = 1){ walletService.withdraw(transfer.debtorId, transfer.amount) }
+            verify(exactly = 1) { walletService.getBalance(transfer.debtorId) }
+            verify(exactly = 1) { walletService.withdraw(transfer.debtorId, transfer.amount) }
         }
 
         @Test
@@ -54,8 +60,8 @@ class TransferServiceTest {
             assertThat(exception.message).isEqualTo(exceptionMessage)
             assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
 
-            verify(exactly = 1){ walletService.getBalance(transfer.debtorId) }
-            verify(exactly = 0){ walletService.withdraw(any(), any()) }
+            verify(exactly = 1) { walletService.getBalance(transfer.debtorId) }
+            verify(exactly = 0) { walletService.withdraw(any(), any()) }
         }
     }
 }

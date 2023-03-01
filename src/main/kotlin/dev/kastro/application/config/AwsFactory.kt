@@ -10,6 +10,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient
+import software.amazon.awssdk.services.sqs.SqsClient
 import java.net.URI
 
 @Factory
@@ -46,6 +47,18 @@ class AwsFactory(
     fun createSecretsManagerClient(): SecretsManagerClient {
         val client = SecretsManagerClient
             .builder()
+            .region(Region.of(config.region))
+
+        if (isLocalEnvironment(environment)) {
+            setLocalConfig(client)
+        }
+
+        return client.build()
+    }
+
+    @Bean
+    fun createSqsClient(): SqsClient {
+        val client = SqsClient.builder()
             .region(Region.of(config.region))
 
         if (isLocalEnvironment(environment)) {

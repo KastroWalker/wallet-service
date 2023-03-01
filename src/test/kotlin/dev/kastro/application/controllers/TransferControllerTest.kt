@@ -1,16 +1,16 @@
 package dev.kastro.application.controllers
 
 import assertk.assertThat
+import assertk.assertions.isEqualTo
 import dev.kastro.application.controllers.requests.TransferRequest
+import dev.kastro.application.exceptions.ResourceNotFoundException
 import dev.kastro.domain.services.TransferService
+import io.micronaut.http.HttpStatus
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
-import assertk.assertions.isEqualTo
-import dev.kastro.application.exceptions.ResourceNotFoundException
-import io.micronaut.http.HttpStatus
-import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -34,7 +34,7 @@ class TransferControllerTest {
             assertThat(result.code()).isEqualTo(HttpStatus.NO_CONTENT.code)
 
             verify { controller.transfer(request) }
-            verify(exactly = 1){ transferService.execute(request.toDomain()) }
+            verify(exactly = 1) { transferService.execute(request.toDomain()) }
         }
 
         @Test
@@ -50,13 +50,13 @@ class TransferControllerTest {
                 ResourceNotFoundException(exceptionMessage)
 
             val exception = assertThrows<ResourceNotFoundException> {
-                 controller.transfer(request)
+                controller.transfer(request)
             }
 
             assertThat(exception.status).isEqualTo(HttpStatus.NOT_FOUND)
             assertThat(exception.message).isEqualTo(exceptionMessage)
 
-            verify(exactly = 1){ transferService.execute(request.toDomain()) }
+            verify(exactly = 1) { transferService.execute(request.toDomain()) }
         }
     }
 }

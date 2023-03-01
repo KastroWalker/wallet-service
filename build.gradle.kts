@@ -48,6 +48,7 @@ dependencies {
     // AWS
     implementation("software.amazon.awssdk:dynamodb-enhanced:2.20.1")
     implementation("software.amazon.awssdk:secretsmanager:2.20.0")
+    implementation("software.amazon.awssdk:sqs:2.20.3")
 
     // TEST
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
